@@ -2,6 +2,9 @@ public class Decrypter {
 
     private String code;
 
+    public Decrypter() {
+        this("");
+    }
     public Decrypter(String code) {
         this.code = code;
     }
@@ -16,7 +19,6 @@ public class Decrypter {
         digit2 = reverseConvert(digit2);
         digit3 = reverseConvert(digit3);
         digit4 = reverseConvert(digit4);
-//        System.out.println(digit1 + " " + digit2 + " " + digit3 + " " + digit4);
 
         this.code = Integer.toString(digit3) + digit4 + digit1 + digit2;
         return this.code;

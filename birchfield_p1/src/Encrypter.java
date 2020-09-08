@@ -2,6 +2,9 @@ public class Encrypter {
 
     private String code;
 
+    public Encrypter() {
+        this("");
+    }
     public Encrypter(String code) {
         this.code = code;
     }
