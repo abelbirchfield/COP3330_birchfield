@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class App {
 
-//    DO NOT EDIT MAIN METHOD!!!!!
     public static void main(String[] args) {
         ArrayList<BodyMassIndex> bmiData = new ArrayList<BodyMassIndex>();
 
@@ -17,7 +16,7 @@ public class App {
             displayBmiInfo(bmi);
         }
 
-//        displayBmiStatistics(bmiData);
+        displayBmiStatistics(bmiData);
     }
 
     public static boolean moreInput() {
@@ -33,10 +32,9 @@ public class App {
                 returnValue = false;
                 break;
             } else {
-                System.out.print("That is not a valid response. Please enter 'Y' for yes or 'N' for no: ");
+                System.out.print("\tThat is not a valid response. Please enter 'Y' for yes or 'N' for no: ");
             }
         }
-
         return returnValue;
     }
 
@@ -47,7 +45,7 @@ public class App {
         input.nextLine();
 
         while(height<=0) {
-            System.out.print("That is not a valid height. Please enter a positive number: ");
+            System.out.print("\tThat is not a valid height. Please enter a positive number: ");
             height = input.nextDouble();
             input.nextLine();
         }
@@ -61,7 +59,7 @@ public class App {
         input.nextLine();
 
         while(weight<=0) {
-            System.out.print("That is not a valid weight. Please enter a positive number: ");
+            System.out.print("\tThat is not a valid weight. Please enter a positive number: ");
             weight = input.nextDouble();
             input.nextLine();
         }
@@ -69,12 +67,18 @@ public class App {
     }
 
     public static void displayBmiInfo(BodyMassIndex bmi) {
-        System.out.printf("%.1f%n", bmi.bmiScore());
-        System.out.printf("%s", bmi.bmiCategory());
+        System.out.printf("%nBMI Score: %.1f%n", bmi.bmiScore());
+        System.out.printf("BMI Category: %s%n", bmi.bmiCategory());
     }
 
     public static void displayBmiStatistics(ArrayList<BodyMassIndex> bmiData) {
-
+        double average = 0;
+        for (int i = 0; i < bmiData.size(); i++) {
+            average += bmiData.get(i).bmiScore();
+        }
+        average /= bmiData.size();
+        average = Math.floor(average*100)/100;
+        System.out.printf("%nAverage BMI Score: %.2f%n", average);
     }
 
 
