@@ -23,11 +23,21 @@ public class App {
     public static boolean moreInput() {
         Scanner input = new Scanner(System.in);
         System.out.print("\nWould you like to enter more information? Enter 'Y' for yes or 'N' for no: ");
-        if (input.next().equals("Y")) {
-            return true;
-        } else {
-            return false;
+        boolean returnValue = false;
+
+        while (!returnValue) {
+            String response = input.next();
+            if (response.equals("Y")) {
+                returnValue = true;
+            } else if (response.equals("N")) {
+                returnValue = false;
+                break;
+            } else {
+                System.out.print("That is not a valid response. Please enter 'Y' for yes or 'N' for no: ");
+            }
         }
+
+        return returnValue;
     }
 
     public static double getUserHeight() {
@@ -35,6 +45,12 @@ public class App {
         System.out.print("What is your height (in inches)? ");
         double height = input.nextDouble();
         input.nextLine();
+
+        while(height<=0) {
+            System.out.print("That is not a valid height. Please enter a positive number: ");
+            height = input.nextDouble();
+            input.nextLine();
+        }
         return height;
     }
 
@@ -43,6 +59,12 @@ public class App {
         System.out.print("What is your weight (in pounds)? ");
         double weight = input.nextDouble();
         input.nextLine();
+
+        while(weight<=0) {
+            System.out.print("That is not a valid weight. Please enter a positive number: ");
+            weight = input.nextDouble();
+            input.nextLine();
+        }
         return weight;
     }
 
