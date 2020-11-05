@@ -14,4 +14,9 @@ public class TaskItem {
     public void setCompleted(boolean complete) {
         this.completed = complete;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s: %s", this.dueDate, this.title, this.description);
+    }
 }

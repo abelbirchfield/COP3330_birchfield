@@ -29,5 +29,13 @@ public class TaskList {
         tasks.get(index).setCompleted(false);
     }
 
+    @Override
+    public String toString() {
+        String output = "";
+        for(int i = 0; i < tasks.size(); i++) {
+            output += String.format("%d) %s%n", i, tasks.get(i));
+        }
+        return output;
+    }
 
 }
