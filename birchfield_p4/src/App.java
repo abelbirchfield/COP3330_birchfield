@@ -5,17 +5,41 @@ public class App {
     private static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        boolean done = false;
 
-        TaskList tasks = new TaskList();
+        while (!done) {
+            displayMainMenu();
+            int option = input.nextInt();
 
-        while (true) {
-            displayListOperationMenu();
-            System.out.print("> ");
-            int choice = input.nextInt();
-            doChoice(choice, tasks);
+            switch (option) {
+                case 1: option1();
+                        break;
+                case 2:
+                case 3: done = true;
+                        break;
+                default: System.out.println("That is not a valid choice.");
+            }
         }
     }
 
+    public static void option1() {
+        TaskList tasks = new TaskList();
+        System.out.println("new task list has been created");
+        boolean keepGoing = true;
+        while (keepGoing) {
+            displayListOperationMenu();
+            int choice = input.nextInt();
+            keepGoing = doChoice(choice, tasks);
+        }
+    }
+
+    public static void displayMainMenu() {
+        System.out.print("\nMain Menu\n----------\n");
+        System.out.println("1) create a new list");
+        System.out.println("2) load an existing list");
+        System.out.println("3) quit\n");
+        System.out.print("> ");
+    }
     public static void displayListOperationMenu() {
         System.out.print("\nList Operation Menu\n----------\n");
         System.out.println("1) view the list");
@@ -26,25 +50,27 @@ public class App {
         System.out.println("6) unmark an item as completed");
         System.out.println("7) save the current list");
         System.out.println("8) quit to the main menu\n");
+        System.out.print("> ");
     }
 
-    public static void doChoice(int choice, TaskList tasks) {
+    public static boolean doChoice(int choice, TaskList tasks) {
         switch (choice) {
             case 1: choice1(tasks);
-                    break;
+                    return true;
             case 2: choice2(tasks);
-                    break;
+                    return true;
             case 3: choice3(tasks);
-                    break;
+                    return true;
             case 4: choice4(tasks);
-                    break;
+                    return true;
             case 5: choice5(tasks);
-                    break;
+                    return true;
             case 6: choice6(tasks);
-                    break;
-            case 7:
-            case 8:
+                    return true;
+            case 7: return true;
+            case 8: return false;
             default: System.out.println("That is not a valid choice.");
+                     return true;
         }
     }
 
