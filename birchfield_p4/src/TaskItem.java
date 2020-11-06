@@ -14,6 +14,9 @@ public class TaskItem {
     public void setCompleted(boolean complete) {
         this.completed = complete;
     }
+    public boolean getCompleted() {
+        return this.completed;
+    }
 
     @Override
     public String toString() {

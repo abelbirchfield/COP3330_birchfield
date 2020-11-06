@@ -7,9 +7,9 @@ public class TaskList {
         this.tasks = new ArrayList<TaskItem>();
     }
 
-    public ArrayList<TaskItem> getTasks() {
-        return tasks;
-    }
+//    public ArrayList<TaskItem> getTasks() {
+//        return tasks;
+//    }
 
     public void addTask(TaskItem newTask) {
         tasks.add(newTask);
@@ -17,9 +17,8 @@ public class TaskList {
     public void removeTask(int index) {
         tasks.remove(index);
     }
-
-    public void editTaskList(int index, String field, String newValue) {
-        //set variable field = newValue for object at index in tasks
+    public void editTaskList(int index, TaskItem newTask) {
+        tasks.set(index, newTask);
     }
 
     public void complete(int index) {
@@ -33,7 +32,29 @@ public class TaskList {
     public String toString() {
         String output = "";
         for(int i = 0; i < tasks.size(); i++) {
-            output += String.format("%d) %s%n", i, tasks.get(i));
+            if(tasks.get(i).getCompleted()) {
+                output += String.format("%d) *** %s%n", i, tasks.get(i));
+            } else {
+                output += String.format("%d) %s%n", i, tasks.get(i));
+            }
+        }
+        return output;
+    }
+    public String toStringUncompleted() {
+        String output = "";
+        for(int i = 0; i < tasks.size(); i++) {
+            if(!tasks.get(i).getCompleted()) {
+                output += String.format("%d) %s%n", i, tasks.get(i));
+            }
+        }
+        return output;
+    }
+    public String toStringCompleted() {
+        String output = "";
+        for(int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).getCompleted()) {
+                output += String.format("%d) %s%n", i, tasks.get(i));
+            }
         }
         return output;
     }
