@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.util.InputMismatchException;
 
 public class App {
 
@@ -10,29 +11,32 @@ public class App {
 
     public static void main(String[] args) {
         boolean done = false;
-
         while (!done) {
-            displayMainMenu();
-            int option = input.nextInt();
-
-            switch (option) {
-                case 1: option1();
-                        break;
-                case 2: option2();
-                        break;
-                case 3: done = true;
-                        break;
-                default: System.out.println("That is not a valid choice.");
+            try {
+                displayMainMenu();
+                int option = input.nextInt();
+                switch (option) {
+                    case 1: createNewTaskList();
+                            break;
+                    case 2: loadTaskList();
+                            break;
+                    case 3: done = true;
+                            break;
+                    default: System.out.println("That is not a valid choice.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("That is not a valid choice.");
+                input.nextLine();
             }
         }
     }
 
-    public static void option1() {
+    public static void createNewTaskList() {
         TaskList tasks = new TaskList();
         System.out.println("new task list has been created");
         interactWithTaskList(tasks);
     }
-    public static void option2() {
+    public static void loadTaskList() {
         input.nextLine();
         TaskList tasks = new TaskList();
         System.out.print("Enter the file name to load: ");
@@ -44,12 +48,9 @@ public class App {
             int count = 0;
             while (reader.hasNextLine()) {
                 String taskLine = reader.nextLine();
-                int start = taskLine.indexOf("[");
-                int stop1 = taskLine.indexOf("]");
-                int stop2 = taskLine.indexOf(":");
-                String dueDate = taskLine.substring(start+1, stop1);
-                String title = taskLine.substring(stop1+2, stop2);
-                String description = taskLine.substring(stop2+2);
+                String dueDate = taskLine.substring(taskLine.indexOf("[")+1, taskLine.indexOf("]"));
+                String title = taskLine.substring(taskLine.indexOf("]")+2, taskLine.indexOf(":"));
+                String description = taskLine.substring(taskLine.indexOf(":")+2);
                 TaskItem newTask = new TaskItem(title, description, dueDate);
                 tasks.addTask(newTask);
                 if(taskLine.contains("***")) {
@@ -60,8 +61,7 @@ public class App {
             reader.close();
             System.out.println("task list has been loaded");
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println("The file could not be found.");
         }
         interactWithTaskList(tasks);
     }
@@ -69,9 +69,14 @@ public class App {
     public static void interactWithTaskList(TaskList tasks) {
         boolean keepGoing = true;
         while (keepGoing) {
-            displayListOperationMenu();
-            int choice = input.nextInt();
-            keepGoing = doChoice(choice, tasks);
+            try {
+                displayListOperationMenu();
+                int choice = input.nextInt();
+                keepGoing = doUserChoice(choice, tasks);
+            } catch (InputMismatchException e) {
+                System.out.println("That is not a valid choice.");
+                input.nextLine();
+            }
         }
     }
     public static void displayMainMenu() {
@@ -94,21 +99,21 @@ public class App {
         System.out.print("> ");
     }
 
-    public static boolean doChoice(int choice, TaskList tasks) {
+    public static boolean doUserChoice(int choice, TaskList tasks) {
         switch (choice) {
-            case 1: choice1(tasks);
+            case 1: displayTaskList(tasks);
                     return true;
-            case 2: choice2(tasks);
+            case 2: addNewTask(tasks);
                     return true;
-            case 3: choice3(tasks);
+            case 3: editTask(tasks);
                     return true;
-            case 4: choice4(tasks);
+            case 4: removeTask(tasks);
                     return true;
-            case 5: choice5(tasks);
+            case 5: markTaskCompleted(tasks);
                     return true;
-            case 6: choice6(tasks);
+            case 6: unmarkTaskCompleted(tasks);
                     return true;
-            case 7: choice7(tasks);
+            case 7: saveToFile(tasks);
                     return true;
             case 8: return false;
             default: System.out.println("That is not a valid choice.");
@@ -116,11 +121,11 @@ public class App {
         }
     }
 
-    public static void choice1(TaskList tasks) {
+    public static void displayTaskList(TaskList tasks) {
         System.out.println("Current Tasks\n----------\n");
         System.out.println(tasks);
     }
-    public static void choice2(TaskList tasks) {
+    public static void addNewTask(TaskList tasks) {
         input.nextLine();
         System.out.print("Task title: ");
         String title = input.nextLine();
@@ -129,10 +134,16 @@ public class App {
         System.out.print("Task due date (YYYY-MM-DD): ");
         String date = input.nextLine();
 
-        TaskItem newTask = new TaskItem(title, description, date);
-        tasks.addTask(newTask);
+        try {
+            TaskItem newTask = new TaskItem(title, description, date);
+            tasks.addTask(newTask);
+        } catch (InvalidTitleException e) {
+            System.out.println("WARNING: title must be at least 1 character long; task not created");
+        } catch (InvalidDateException e) {
+            System.out.println("WARNING: invalid due date; task not created");
+        }
     }
-    public static void choice3(TaskList tasks) {
+    public static void editTask(TaskList tasks) {
         input.nextLine();
         System.out.println("Current Tasks\n----------\n");
         System.out.println(tasks);
@@ -146,10 +157,9 @@ public class App {
         System.out.print("Enter a new task due date (YYYY-MM-DD) for task " + indexToEdit + ": ");
         String date = input.nextLine();
 
-        TaskItem newTask = new TaskItem(title, description, date);
-        tasks.editTaskList(indexToEdit, newTask);
+        tasks.editTaskList(indexToEdit, title, description, date);
     }
-    public static void choice4(TaskList tasks) {
+    public static void removeTask(TaskList tasks) {
         input.nextLine();
         System.out.println("Current Tasks\n----------\n");
         System.out.println(tasks);
@@ -157,7 +167,7 @@ public class App {
         int indexToRemove = input.nextInt();
         tasks.removeTask(indexToRemove);
     }
-    public static void choice5(TaskList tasks) {
+    public static void markTaskCompleted(TaskList tasks) {
         input.nextLine();
         System.out.println("Uncompleted Tasks\n----------\n");
         System.out.println(tasks.toStringUncompleted());
@@ -165,7 +175,7 @@ public class App {
         int indexToComplete = input.nextInt();
         tasks.complete(indexToComplete);
     }
-    public static void choice6(TaskList tasks) {
+    public static void unmarkTaskCompleted(TaskList tasks) {
         input.nextLine();
         System.out.println("Completed Tasks\n----------\n");
         System.out.println(tasks.toStringCompleted());
@@ -173,7 +183,7 @@ public class App {
         int indexToIncomplete = input.nextInt();
         tasks.incomplete(indexToIncomplete);
     }
-    public static void choice7(TaskList tasks) {
+    public static void saveToFile(TaskList tasks) {
         input.nextLine();
         System.out.print("Enter the filename to save as: ");
         String fileName = input.nextLine();
@@ -188,7 +198,6 @@ public class App {
             System.out.println("task list has been saved");
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace();
         }
     }
 }
