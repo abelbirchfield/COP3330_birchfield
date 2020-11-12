@@ -60,10 +60,10 @@ public class App {
             }
             reader.close();
             System.out.println("task list has been loaded");
+            interactWithTaskList(tasks);
         } catch (FileNotFoundException e) {
-            System.out.println("The file could not be found.");
+            System.out.println("The file could not be found. Please try again");
         }
-        interactWithTaskList(tasks);
     }
 
     public static void interactWithTaskList(TaskList tasks) {

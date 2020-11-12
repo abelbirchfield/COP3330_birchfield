@@ -35,7 +35,6 @@ public class TaskItem {
                 return false;
             }
         } catch (NumberFormatException e) {
-            System.out.println("An error occurred.");
             return false;
         }
     }

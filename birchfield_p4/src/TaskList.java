@@ -13,20 +13,18 @@ public class TaskList {
     public void removeTask(int index) {
         tasks.remove(index);
     }
-//    public void editTaskList(int index, TaskItem newTask) {
-//        tasks.set(index, newTask);
-//    }
-public void editTaskList(int index, String title, String description, String dueDate) {
-    try {
-        tasks.get(index).setTitle(title);
-        tasks.get(index).setDescription(description);
-        tasks.get(index).setDueDate(dueDate);
-    } catch (InvalidTitleException e) {
-        System.out.println("WARNING: title must be at least 1 character long; task not edited");
-    } catch (InvalidDateException e) {
-        System.out.println("WARNING: invalid due date; task not edited");
+
+    public void editTaskList(int index, String title, String description, String dueDate) {
+        try {
+            tasks.get(index).setTitle(title);
+            tasks.get(index).setDescription(description);
+            tasks.get(index).setDueDate(dueDate);
+        } catch (InvalidTitleException e) {
+            System.out.println("WARNING: title must be at least 1 character long; task not edited");
+        } catch (InvalidDateException e) {
+            System.out.println("WARNING: invalid due date; task not edited");
+        }
     }
-}
 
     public void complete(int index) {
         tasks.get(index).setCompleted(true);
