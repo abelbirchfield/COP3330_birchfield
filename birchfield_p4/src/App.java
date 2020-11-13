@@ -133,7 +133,6 @@ public class App {
         String description = input.nextLine();
         System.out.print("Task due date (YYYY-MM-DD): ");
         String date = input.nextLine();
-
         try {
             TaskItem newTask = new TaskItem(title, description, date);
             tasks.addTask(newTask);
@@ -141,47 +140,64 @@ public class App {
             System.out.println("WARNING: title must be at least 1 character long; task not created");
         } catch (InvalidDateException e) {
             System.out.println("WARNING: invalid due date; task not created");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("WARNING: invalid due date; task not created");
         }
     }
     public static void editTask(TaskList tasks) {
-        input.nextLine();
-        System.out.println("Current Tasks\n----------\n");
-        System.out.println(tasks);
-        System.out.print("Which task will you edit? ");
-        int indexToEdit = input.nextInt();
-        input.nextLine();
-        System.out.print("Enter a new title for task " + indexToEdit + ": ");
-        String title = input.nextLine();
-        System.out.print("Enter a new description for task " + indexToEdit + ": ");
-        String description = input.nextLine();
-        System.out.print("Enter a new task due date (YYYY-MM-DD) for task " + indexToEdit + ": ");
-        String date = input.nextLine();
-
-        tasks.editTaskList(indexToEdit, title, description, date);
+        try {
+            input.nextLine();
+            System.out.println("Current Tasks\n----------\n");
+            System.out.println(tasks);
+            System.out.print("Which task will you edit? ");
+            int indexToEdit = input.nextInt();
+            input.nextLine();
+            System.out.print("Enter a new title for task " + indexToEdit + ": ");
+            String title = input.nextLine();
+            System.out.print("Enter a new description for task " + indexToEdit + ": ");
+            String description = input.nextLine();
+            System.out.print("Enter a new task due date (YYYY-MM-DD) for task " + indexToEdit + ": ");
+            String date = input.nextLine();
+            tasks.editTaskList(indexToEdit, title, description, date);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("WARNING: invalid task choice; task cannot be edited");
+        }
     }
     public static void removeTask(TaskList tasks) {
-        input.nextLine();
-        System.out.println("Current Tasks\n----------\n");
-        System.out.println(tasks);
-        System.out.print("Which task will you remove? ");
-        int indexToRemove = input.nextInt();
-        tasks.removeTask(indexToRemove);
+        try {
+            input.nextLine();
+            System.out.println("Current Tasks\n----------\n");
+            System.out.println(tasks);
+            System.out.print("Which task will you remove? ");
+            int indexToRemove = input.nextInt();
+            tasks.removeTask(indexToRemove);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("WARNING: invalid task choice; task cannot be removed");
+        }
     }
     public static void markTaskCompleted(TaskList tasks) {
-        input.nextLine();
-        System.out.println("Uncompleted Tasks\n----------\n");
-        System.out.println(tasks.toStringUncompleted());
-        System.out.print("Which task will you mark as completed? ");
-        int indexToComplete = input.nextInt();
-        tasks.complete(indexToComplete);
+        try {
+            input.nextLine();
+            System.out.println("Uncompleted Tasks\n----------\n");
+            System.out.println(tasks.toStringUncompleted());
+            System.out.print("Which task will you mark as completed? ");
+            int indexToComplete = input.nextInt();
+            tasks.complete(indexToComplete);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("WARNING: invalid task choice; task cannot be marked as completed");
+        }
     }
     public static void unmarkTaskCompleted(TaskList tasks) {
-        input.nextLine();
-        System.out.println("Completed Tasks\n----------\n");
-        System.out.println(tasks.toStringCompleted());
-        System.out.print("Which task will you unmark as completed? ");
-        int indexToIncomplete = input.nextInt();
-        tasks.incomplete(indexToIncomplete);
+        try {
+            input.nextLine();
+            System.out.println("Completed Tasks\n----------\n");
+            System.out.println(tasks.toStringCompleted());
+            System.out.print("Which task will you unmark as completed? ");
+            int indexToIncomplete = input.nextInt();
+            tasks.incomplete(indexToIncomplete);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("WARNING: invalid task choice; task cannot be unmarked as completed");
+        }
     }
     public static void saveToFile(TaskList tasks) {
         input.nextLine();
