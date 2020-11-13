@@ -31,12 +31,12 @@ public class App {
         }
     }
 
-    public static void createNewTaskList() {
+    private static void createNewTaskList() {
         TaskList tasks = new TaskList();
         System.out.println("new task list has been created");
         interactWithTaskList(tasks);
     }
-    public static void loadTaskList() {
+    private static void loadTaskList() {
         input.nextLine();
         TaskList tasks = new TaskList();
         System.out.print("Enter the file name to load: ");
@@ -66,7 +66,7 @@ public class App {
         }
     }
 
-    public static void interactWithTaskList(TaskList tasks) {
+    private static void interactWithTaskList(TaskList tasks) {
         boolean keepGoing = true;
         while (keepGoing) {
             try {
@@ -79,14 +79,14 @@ public class App {
             }
         }
     }
-    public static void displayMainMenu() {
+    private static void displayMainMenu() {
         System.out.print("\nMain Menu\n----------\n");
         System.out.println("1) create a new list");
         System.out.println("2) load an existing list");
         System.out.println("3) quit\n");
         System.out.print("> ");
     }
-    public static void displayListOperationMenu() {
+    private static void displayListOperationMenu() {
         System.out.print("\nList Operation Menu\n----------\n");
         System.out.println("1) view the list");
         System.out.println("2) add an item");
@@ -99,7 +99,7 @@ public class App {
         System.out.print("> ");
     }
 
-    public static boolean doUserChoice(int choice, TaskList tasks) {
+    private static boolean doUserChoice(int choice, TaskList tasks) {
         switch (choice) {
             case 1: displayTaskList(tasks);
                     return true;
@@ -121,11 +121,11 @@ public class App {
         }
     }
 
-    public static void displayTaskList(TaskList tasks) {
+    private static void displayTaskList(TaskList tasks) {
         System.out.println("Current Tasks\n----------\n");
         System.out.println(tasks);
     }
-    public static void addNewTask(TaskList tasks) {
+    private static void addNewTask(TaskList tasks) {
         input.nextLine();
         System.out.print("Task title: ");
         String title = input.nextLine();
@@ -144,7 +144,7 @@ public class App {
             System.out.println("WARNING: invalid due date; task not created");
         }
     }
-    public static void editTask(TaskList tasks) {
+    private static void editTask(TaskList tasks) {
         try {
             input.nextLine();
             System.out.println("Current Tasks\n----------\n");
@@ -163,7 +163,7 @@ public class App {
             System.out.println("WARNING: invalid task choice; task cannot be edited");
         }
     }
-    public static void removeTask(TaskList tasks) {
+    private static void removeTask(TaskList tasks) {
         try {
             input.nextLine();
             System.out.println("Current Tasks\n----------\n");
@@ -175,7 +175,7 @@ public class App {
             System.out.println("WARNING: invalid task choice; task cannot be removed");
         }
     }
-    public static void markTaskCompleted(TaskList tasks) {
+    private static void markTaskCompleted(TaskList tasks) {
         try {
             input.nextLine();
             System.out.println("Uncompleted Tasks\n----------\n");
@@ -187,7 +187,7 @@ public class App {
             System.out.println("WARNING: invalid task choice; task cannot be marked as completed");
         }
     }
-    public static void unmarkTaskCompleted(TaskList tasks) {
+    private static void unmarkTaskCompleted(TaskList tasks) {
         try {
             input.nextLine();
             System.out.println("Completed Tasks\n----------\n");
@@ -199,7 +199,7 @@ public class App {
             System.out.println("WARNING: invalid task choice; task cannot be unmarked as completed");
         }
     }
-    public static void saveToFile(TaskList tasks) {
+    private static void saveToFile(TaskList tasks) {
         input.nextLine();
         System.out.print("Enter the filename to save as: ");
         String fileName = input.nextLine();
