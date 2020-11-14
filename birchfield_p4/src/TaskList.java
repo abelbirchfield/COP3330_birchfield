@@ -17,7 +17,6 @@ public class TaskList {
     public void removeTask(int index) {
         tasks.remove(index);
     }
-
     public void editTaskList(int index, String title, String description, String dueDate) {
         try {
             tasks.get(index).setTitle(title);
