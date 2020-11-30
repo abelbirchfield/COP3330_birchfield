@@ -1,4 +1,4 @@
-public class TaskItem {
+public class TaskItem extends Item {
     private String title;
     private String description;
     private String dueDate;

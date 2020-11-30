@@ -175,7 +175,7 @@ public class ContactApp {
             displayContactList(contacts);
             System.out.print("Which contact will you remove? ");
             int indexToRemove = input.nextInt();
-            contacts.removeContact(indexToRemove);
+            contacts.removeItem(indexToRemove);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("WARNING: invalid contact choice; contact cannot be removed");
         }

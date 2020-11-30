@@ -3,7 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TaskList {
+public class TaskList extends ItemList {
     private ArrayList<TaskItem> tasks;
 
     public TaskList() {
@@ -17,7 +17,7 @@ public class TaskList {
     public void addTask(TaskItem newTask) {
         tasks.add(newTask);
     }
-    public void removeTask(int index) {
+    public void removeItem(int index) {
         tasks.remove(index);
     }
     public void editTaskList(int index, String title, String description, String dueDate) {

@@ -173,7 +173,7 @@ public class TaskApp {
             displayTaskList(tasks);
             System.out.print("Which task will you remove? ");
             int indexToRemove = input.nextInt();
-            tasks.removeTask(indexToRemove);
+            tasks.removeItem(indexToRemove);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("WARNING: invalid task choice; task cannot be removed");
         }

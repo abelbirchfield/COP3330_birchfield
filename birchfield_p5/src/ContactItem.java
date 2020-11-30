@@ -1,4 +1,4 @@
-public class ContactItem {
+public class ContactItem extends Item {
     private String firstName;
     private String lastName;
     private String phoneNumber;

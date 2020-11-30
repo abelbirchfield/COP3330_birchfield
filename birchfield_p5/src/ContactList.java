@@ -3,7 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ContactList {
+public class ContactList extends ItemList {
     private ArrayList<ContactItem> contacts;
 
     public ContactList() {
@@ -18,7 +18,7 @@ public class ContactList {
         contacts.add(newContact);
     }
 
-    public void removeContact(int index) {
+    public void removeItem(int index) {
         contacts.remove(index);
     }
 

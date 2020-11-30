@@ -12,11 +12,9 @@ public class App {
                 switch (selection) {
                     case 1: TaskApp taskApp = new TaskApp();
                             taskApp.runTaskApp();
-                            done = true;
                             break;
                     case 2: ContactApp contactApp = new ContactApp();
                             contactApp.runContactApp();
-                            done = true;
                             break;
                     case 3: done = true;
                             break;
@@ -30,7 +28,7 @@ public class App {
     }
 
     private static void displaySelectionMenu() {
-        System.out.print("\nSelect Your Application\n--------------------\n");
+        System.out.print("\nSelect Your Application\n-----------------------\n");
         System.out.println("1) task list");
         System.out.println("2) contact list");
         System.out.println("3) quit\n");
